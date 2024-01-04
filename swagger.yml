@@ -1,0 +1,192 @@
+openapi: 3.0.0
+info:
+  title: "Flask REST API"
+  description: "An API about authors and their books"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+
+    Book:
+      type: object
+      properties:
+        author_id:
+          type: string
+        title:
+          type: string
+        read:
+          type: boolean
+
+    BookList:
+      type: array
+      items:
+        $ref: "#/components/schemas/Book"
+
+    Author:
+      type: object
+      properties:
+        name:
+          type: string
+        books:
+          $ref: "#/components/schemas/BookList"
+
+  parameters:
+    id:
+      name: "id"
+      description: "ID to be used for the query"
+      in: path
+      required: True
+      schema:
+        type: string
+
+paths:
+  #AUTHORS
+  /authors:
+    get:
+      operationId: "authors.obtain_all"
+      tags:
+        - "Authors"
+      summary: "Get the list of all authors"
+      responses:
+        "200":
+          description: "Successfully read the list of all authors."
+
+  /author:
+    post:
+      operationId: "authors.add_author"
+      tags:
+        - Author
+      summary: "Add a new author to the list"
+      requestBody:
+          description: "Author to create"
+          required: True
+          content:
+            application/json:
+              schema:
+                x-body-name: "author"
+                $ref: "#/components/schemas/Author"
+      responses:
+        "201":
+          description: "Successfully added a new author to the list"
+
+  /author/{id}:
+    get:
+      operationId: "authors.find_by_id"
+      tags:
+        - "Author"
+      summary: "Find one author using its ID"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: "Successfully found the author"
+
+    put:
+      operationId: "authors.update_author"
+      tags:
+        - Author
+      summary: "Update an author's name"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        description: "New author to update"
+        required: true
+        content:
+          application/json:
+            schema:
+              x-body-name: "author"
+              $ref: "#/components/schemas/Author"
+      responses:
+        "201":
+          description: "Successfully updated the author"
+          
+    
+    delete:
+      operationId: "authors.delete"
+      tags:
+        - "Author"
+      summary: "Delete an author"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: "Successfully deleted the author"
+  
+  #BOOKS
+  /books:
+    get:
+      operationId: "books.obtain_all"
+      tags:
+        - "Books"
+      summary: "Get the list of all books"
+      responses:
+        "200":
+          description: "Successfully read the list of all books."
+
+  /book:
+    post:
+      operationId: "books.add_book"
+      tags:
+        - Book
+      summary: "Add a new book to the list"
+      requestBody:
+          description: "Book to create"
+          required: True
+          content:
+            application/json:
+              schema:
+                x-body-name: "book"
+                $ref: "#/components/schemas/Book"
+      responses:
+        "201":
+          description: "Successfully added a new book to the list"
+
+  /book/{id}:
+    get:
+      operationId: "books.find_by_id"
+      tags:
+        - "Book"
+      summary: "Find one book using its ID"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: "Successfully found the book!"
+
+    put:
+      operationId: "books.update_book"
+      tags:
+        - Book
+      summary: "Update a book"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        description: "New book to update"
+        required: true
+        content:
+          application/json:
+            schema:
+              x-body-name: "book"
+              $ref: "#/components/schemas/Book"
+      responses:
+        "201":
+          description: "Successfully updated the book"
+    
+    delete:
+      operationId: "books.delete"
+      tags:
+        - "Book"
+      summary: "Delete a book"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: "Successfully deleted the book"
+
+    
+
+
+
