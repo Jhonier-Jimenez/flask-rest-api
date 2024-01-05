@@ -30,6 +30,12 @@ This project was developed using the following technologies:
 - Run the [FrontEnd of the project ](https://github.com/Jhonier-Jimenez/book-app-frontend) by following the instructions there.
 - Navigate to `http://localhost:4200` when you also get the frontend up and running to see and use the application on its full.
 
+## Side notes
+- All of the endpoints have also been through test scenarios using postman
+
+  ![image](https://github.com/Jhonier-Jimenez/flask-rest-api/assets/32853930/73bbcdee-2d77-42ad-9038-f375975f3f24)
+
+
 ## Further development
 - Since the backend is already providing all CRUD operations for Authors too, we should add the implementation for them in the frontend.
   
